@@ -36,8 +36,9 @@ jobs:
     - name: Test with Maven
       run: mvn -B test --file pom.xml
 
-    - uses: mr-smithers-excellent/docker-build-push@v6
+
     - name: Build docker image and push on docker hub
+    - uses: mr-smithers-excellent/docker-build-push@v6
       with:
         image: hf2810/oc-p10
         tags: v1, latest
