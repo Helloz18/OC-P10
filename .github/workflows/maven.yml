@@ -14,14 +14,14 @@ on:
   pull_request:
     branches: [ "develop" ]
 
+
+defaults:
+  run:
+    working-directory: ./back
 jobs:
   build:
 
     runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: back
 
     steps:
     - uses: actions/checkout@v4
