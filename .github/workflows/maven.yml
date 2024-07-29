@@ -41,6 +41,6 @@ jobs:
         image: hf2810/oc-p10
         tags: v1, latest
         registry: docker.io
-        dockerfile: Dockerfile
+        dockerfile: ./back/Dockerfile
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
