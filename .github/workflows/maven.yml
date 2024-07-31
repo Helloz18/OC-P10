@@ -19,9 +19,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: back
+   # defaults:
+    #  run:
+     #   working-directory: back
 
     steps:
     
@@ -36,9 +36,11 @@ jobs:
         
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+      working-directory: back
       
     - name: Test with Maven
       run: mvn -B test --file pom.xml
+      working-directory: back
       
     - name: Test with JaCoCo
       run: mvn test jacoco:report
@@ -46,9 +48,10 @@ jobs:
 
     - name: Save JaCoCo reports
       uses: actions/upload-artifact@v4
+      working-directory: back
       with:
           name: jacoco
-          path: back/target/site/jacoco/
+          path: target/site/jacoco/
       
    # - name: Build docker image and push on docker hub
     #  uses: mr-smithers-excellent/docker-build-push@v6
