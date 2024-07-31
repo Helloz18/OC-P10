@@ -36,3 +36,14 @@ jobs:
       with:
           name: front-coverage
           path: front/coverage/
+
+    - name: Build docker image and push on docker hub
+      uses: mr-smithers-excellent/docker-build-push@v6
+      with:
+          image: hf2810/oc-p10
+          tags: bobapp-front
+          registry: docker.io
+          directory: front
+          dockerfile: front/Dockerfile
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
