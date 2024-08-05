@@ -72,7 +72,7 @@
        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-       run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Helloz18_OC-P10 -Preport -Dsonar.java.source=back/target/site/jacoco/jacoco.xml
+       run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Helloz18_OC-P10  mvn -Dsonar.coverage.jacoco.xmlReportPaths=back/target/site/jacoco/jacoco.xml sonar:sonar -Preport
        working-directory: back
       
 ##Docker
