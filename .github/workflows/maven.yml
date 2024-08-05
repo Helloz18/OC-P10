@@ -36,18 +36,18 @@
          distribution: 'temurin'
          cache: maven
         
-     - name: Build with Maven
-       run: mvn -B package --file pom.xml
-       working-directory: back
+#     - name: Build with Maven
+#       run: mvn -B package --file pom.xml
+#       working-directory: back
       
-     - name: Test with Maven
-       run: mvn -B test --file pom.xml
+     - name: Build and Test with Maven
+       run: mvn -B clean verify
        working-directory: back
 
 ##JaCoCo      
-     - name: Test with JaCoCo
-       run: mvn test jacoco:report
-       working-directory: back
+#     - name: Test with JaCoCo
+#       run: mvn test jacoco:report
+#       working-directory: back
 
      - name: Save JaCoCo reports
        uses: actions/upload-artifact@v4
