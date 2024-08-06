@@ -41,7 +41,7 @@ jobs:
           path: front/coverage/
 
     - name: SonarCloud Scan
-      uses: sonarsource/sonarcloud-github-action@2.3.0 # Ex: v2.1.0, See the latest version at https://github.com/marketplace/actions/sonarcloud-scan
+      uses: sonarsource/sonarcloud-github-action@v2.3.0 # Ex: v2.1.0, See the latest version at https://github.com/marketplace/actions/sonarcloud-scan
       with:
         projectBaseDir: front
       env:
