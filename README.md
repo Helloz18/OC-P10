@@ -1,5 +1,4 @@
 # BobApp
-test
 
 Clone project:
 
