@@ -30,6 +30,7 @@ jobs:
         cache: 'npm'
         cache-dependency-path: front/package-lock.json
 
+##build and test
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test -- --watch=false --browsers=ChromeHeadless --code-coverage
@@ -40,6 +41,7 @@ jobs:
           name: front-coverage
           path: front/coverage/
 
+##SonarCloud
     - name: SonarCloud Scan
       uses: sonarsource/sonarcloud-github-action@v2.3.0 # Ex: v2.1.0, See the latest version at https://github.com/marketplace/actions/sonarcloud-scan
       with:
@@ -47,13 +49,14 @@ jobs:
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-#    - name: Build docker image and push on docker hub
-#      uses: mr-smithers-excellent/docker-build-push@v6
-#      with:
-#          image: hf2810/oc-p10
-#          tags: bobapp-front
-#          registry: docker.io
-#          directory: front
-#          dockerfile: front/Dockerfile
-#          username: ${{ secrets.DOCKERHUB_USERNAME }}
-#          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+##Docker
+    - name: Build docker image and push on docker hub
+      uses: mr-smithers-excellent/docker-build-push@v6
+      with:
+          image: hf2810/oc-p10
+          tags: bobapp-front
+          registry: docker.io
+          directory: front
+          dockerfile: front/Dockerfile
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
