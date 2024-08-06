@@ -30,8 +30,7 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	<profiles>
-		<profile>
+	<profile>
 		<id>report</id>
 		<build>
 			<plugins>
@@ -64,6 +63,5 @@
 				</plugin>
 			</plugins>
 		</build>
-		</profile>
-	</profiles>
+	</profile>
 </project>
