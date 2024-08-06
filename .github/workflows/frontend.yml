@@ -20,6 +20,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        # Disabling shallow clone is recommended for improving relevancy of reporting
+        fetch-depth: 0
     - name: Use Node.js 20.12.2
       uses: actions/setup-node@v4
       with:
@@ -37,13 +40,20 @@ jobs:
           name: front-coverage
           path: front/coverage/
 
-    - name: Build docker image and push on docker hub
-      uses: mr-smithers-excellent/docker-build-push@v6
+    - name: SonarCloud Scan
+      uses: sonarsource/sonarcloud-github-action@2.3.0 # Ex: v2.1.0, See the latest version at https://github.com/marketplace/actions/sonarcloud-scan
       with:
-          image: hf2810/oc-p10
-          tags: bobapp-front
-          registry: docker.io
-          directory: front
-          dockerfile: front/Dockerfile
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+        projectBaseDir: front
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+#    - name: Build docker image and push on docker hub
+#      uses: mr-smithers-excellent/docker-build-push@v6
+#      with:
+#          image: hf2810/oc-p10
+#          tags: bobapp-front
+#          registry: docker.io
+#          directory: front
+#          dockerfile: front/Dockerfile
+#          username: ${{ secrets.DOCKERHUB_USERNAME }}
+#          password: ${{ secrets.DOCKERHUB_PASSWORD }}
