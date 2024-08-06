@@ -86,7 +86,7 @@
           projectBaseDir: back
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_BACKEND }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       
 ##Docker
       - name: Build docker image and push on docker hub
