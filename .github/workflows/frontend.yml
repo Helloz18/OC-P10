@@ -1,0 +1,62 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: Angular Node.js CI
+
+on:
+  push:
+    branches: [ "develop" ]
+  pull_request:
+    branches: [ "develop" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: front
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        # Disabling shallow clone is recommended for improving relevancy of reporting
+        fetch-depth: 0
+    - name: Use Node.js 20.12.2
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.12.2'
+        cache: 'npm'
+        cache-dependency-path: front/package-lock.json
+
+##build and test
+    - run: npm ci
+    - run: npm run build --if-present
+    - run: npm test -- --watch=false --browsers=ChromeHeadless --code-coverage
+
+    - name: Save coverage reports
+      uses: actions/upload-artifact@v4
+      with:
+          name: front-coverage
+          path: front/coverage/
+
+##SonarCloud
+    - name: SonarCloud Scan
+      uses: sonarsource/sonarcloud-github-action@v2.3.0 # Ex: v2.1.0, See the latest version at https://github.com/marketplace/actions/sonarcloud-scan
+      with:
+        projectBaseDir: front
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+##Docker
+    - name: Build docker image and push on docker hub
+      uses: mr-smithers-excellent/docker-build-push@v6
+      with:
+          image: hf2810/oc-p10
+          tags: bobapp-front
+          registry: docker.io
+          directory: front
+          dockerfile: front/Dockerfile
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
